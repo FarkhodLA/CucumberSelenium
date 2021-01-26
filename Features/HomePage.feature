@@ -18,7 +18,7 @@ Scenario: test login feature with correct credentials
  And   click login button 
  Then user gets invalid error message "Invalid credentials"
 
-@incorrectPassword
+@incorrectPassword @Smoke
  Scenario: test login feature with incorrect password
  
  When user enters incorrect password "Admin" and "wrongPassword"

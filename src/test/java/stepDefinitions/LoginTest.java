@@ -65,10 +65,7 @@ public class LoginTest {
 	
 	}
 
-
-		
-
-	@Then("user gets invalid error message {string}")
+     @Then("user gets invalid error message {string}")
 		public void user_gets_invalid_error_message(String errorMessage) {
      	String actualError = driver.findElement(By.id("spanMessage")).getText();
 		Assert.assertEquals(errorMessage, actualError);    
@@ -77,9 +74,7 @@ public class LoginTest {
 		
 		}
 
-	
-
-		@When("user enters incorrect password {string} and {string}")
+	 @When("user enters incorrect password {string} and {string}")
 		public void user_enters_incorrect_password_and(String correctUsername, String incorrectPassword) {
 			driver.findElement(By.id("txtUsername")).sendKeys(correctUsername);
 			driver.findElement(By.id("txtPassword")).sendKeys(incorrectPassword);

@@ -1,7 +1,8 @@
+@Login
 Feature: HomePage
 
 Background: common steps for all login test scenarios
-Given user launches application
+Given  user launches application
  And   user is in homepage
 
 @correctCredentials

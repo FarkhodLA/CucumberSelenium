@@ -9,18 +9,25 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import pages.AccountPage;
+import pages.HomePage;
+import utilities.ConfigReader;
+import utilities.Driver;
+import utilities.TestBase;
 
 
 
-public class LoginTest {
+public class LoginTest extends TestBase {
 	
 	
-	WebDriver driver;
+	WebDriver driver=Driver.getDriver();
+	HomePage hp=new HomePage();
+	AccountPage ap=new AccountPage();
+	
 	@Given("user launches application")
 	public void user_launches_application() {
-		WebDriverManager.chromedriver().setup();
-		driver=new ChromeDriver();
-		driver.get("https://opensource-demo.orangehrmlive.com/");
+		
+		driver.get(ConfigReader.getProperty("url1"));
 	    System.out.println("I launched the application");
 	}
 	@Given("user is in homepage")
@@ -37,21 +44,25 @@ public class LoginTest {
 	
 	@When("user enters correct {string} and {string}")
 	public void user_enters_correct_and(String username, String password) {
-	  driver.findElement(By.id("txtUsername")).sendKeys(username);
-	  driver.findElement(By.id("txtPassword")).sendKeys(password);
+    hp.user.sendKeys(username);
+    hp.password.sendKeys(password);
+		
+//	  driver.findElement(By.id("txtUsername")).sendKeys(username);
+//	  driver.findElement(By.id("txtPassword")).sendKeys(password);
 	 
 	  
 	  
 	}
 	@When("click login button")
 	public void click_login_button() {
-		 driver.findElement(By.id("btnLogin")).click();
+		
+    hp.loginButton.click();
 		 
 	}
 	@Then("user is on  Account page")
 	public void user_is_on_account_page() {
 	 String message="Welcome Paul";
-	 String actualMessage=driver.findElement(By.id("welcome")).getText();
+	 String actualMessage=ap.welcomeMessage.getText();
 	 Assert.assertEquals(message, actualMessage);
 	 
 	 
@@ -59,8 +70,8 @@ public class LoginTest {
 	
 	@When("user enters incorrect username {double} and {string}")
 		public void user_enters_incorrect_username_and(Double userName, String passWord) {
-		driver.findElement(By.id("txtUsername")).sendKeys(String.valueOf(userName));
-		driver.findElement(By.id("txtPassword")).sendKeys(passWord);
+		hp.user.sendKeys(String.valueOf(userName));
+		hp.password.sendKeys(passWord);
 		
 	
 	}
@@ -76,10 +87,9 @@ public class LoginTest {
 
 	 @When("user enters incorrect password {string} and {string}")
 		public void user_enters_incorrect_password_and(String correctUsername, String incorrectPassword) {
-			driver.findElement(By.id("txtUsername")).sendKeys(correctUsername);
-			driver.findElement(By.id("txtPassword")).sendKeys(incorrectPassword);
-			
-			
+		 
+		 hp.user.sendKeys(correctUsername);
+		 hp.password.sendKeys(incorrectPassword);
 			
 		}
 
